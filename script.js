@@ -1,29 +1,70 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const terminalContent = document.getElementById('terminal-content');
-    
-    const lines = [
-      'Initializing hacker simulation...',
-      'Connecting to the target server...',
-      'Bypassing firewall...',
-      'Gaining access...',
-      'Access granted!',
-      'Fetching data...',
-      'Data fetched successfully!',
-      'Simulation complete.'
-    ];
-  
-    let lineIndex = 0;
-  
-    const addLine = () => {
-      if (lineIndex < lines.length) {
-        const line = document.createElement('div');
-        line.textContent = lines[lineIndex];
-        terminalContent.appendChild(line);
-        lineIndex++;
-        setTimeout(addLine, 1000);
-      }
-    };
-  
-    addLine();
-  });
-  
+body {
+  background-color: #000;
+  color: #0f0;
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
+
+.container {
+  text-align: center;
+}
+
+.hacker-text {
+  font-size: 3rem;
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.terminal {
+  background-color: #333;
+  border-radius: 5px;
+  width: 80%;
+  max-width: 600px;
+  padding: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  margin: 2rem auto;
+}
+
+.terminal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.buttons span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 3px;
+}
+
+.red {
+  background-color: #ff605c;
+}
+
+.yellow {
+  background-color: #ffbd44;
+}
+
+.green {
+  background-color: #00ca4e;
+}
+
+.terminal-content {
+  text-align: left;
+  white-space: pre-wrap;
+  height: 300px;
+  overflow-y: auto;
+}
