@@ -1,70 +1,61 @@
-body {
-  background-color: #000;
-  color: #0f0;
-  font-family: 'Courier New', Courier, monospace;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  overflow: hidden;
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const terminalContent = document.getElementById('terminal-content');
+  
+  const lines = [
+    'Initializing hacker simulation...',
+    'Connecting to the target server...',
+    'Bypassing firewall...',
+    'Gaining access...',
+    'Access granted!',
+    'Fetching data...',
+    'Data fetched successfully!',
+    'Simulation complete.',
+    'Pinging target server...'
+  ];
 
-.container {
-  text-align: center;
-}
+  const pingOutput = [
+    'Pinging 192.168.1.1 with 32 bytes of data:',
+    'Reply from 192.168.1.1: bytes=32 time=8ms TTL=64',
+    'Reply from 192.168.1.1: bytes=32 time=7ms TTL=64',
+    'Reply from 192.168.1.1: bytes=32 time=6ms TTL=64',
+    'Reply from 192.168.1.1: bytes=32 time=8ms TTL=64',
+    'Ping statistics for 192.168.1.1:',
+    '    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),',
+    'Approximate round trip times in milli-seconds:',
+    '    Minimum = 6ms, Maximum = 8ms, Average = 7ms'
+  ];
 
-.hacker-text {
-  font-size: 3rem;
-  animation: blink 1s step-start infinite;
-}
+  let lineIndex = 0;
 
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
-}
+  const addLine = (line) => {
+    const div = document.createElement('div');
+    div.textContent = line;
+    terminalContent.appendChild(div);
+    terminalContent.scrollTop = terminalContent.scrollHeight;
+  };
 
-.terminal {
-  background-color: #333;
-  border-radius: 5px;
-  width: 80%;
-  max-width: 600px;
-  padding: 1rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  margin: 2rem auto;
-}
+  const simulatePing = () => {
+    let pingIndex = 0;
+    const pingInterval = setInterval(() => {
+      if (pingIndex < pingOutput.length) {
+        addLine(pingOutput[pingIndex]);
+        pingIndex++;
+      } else {
+        clearInterval(pingInterval);
+      }
+    }, 1000);
+  };
 
-.terminal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
+  const typeLine = () => {
+    if (lineIndex < lines.length) {
+      addLine(lines[lineIndex]);
+      if (lines[lineIndex] === 'Pinging target server...') {
+        setTimeout(simulatePing, 1000);
+      }
+      lineIndex++;
+      setTimeout(typeLine, 1000);
+    }
+  };
 
-.buttons span {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin: 0 3px;
-}
-
-.red {
-  background-color: #ff605c;
-}
-
-.yellow {
-  background-color: #ffbd44;
-}
-
-.green {
-  background-color: #00ca4e;
-}
-
-.terminal-content {
-  text-align: left;
-  white-space: pre-wrap;
-  height: 300px;
-  overflow-y: auto;
-}
+  typeLine();
+});
